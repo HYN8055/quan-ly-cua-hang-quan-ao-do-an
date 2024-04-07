@@ -1,5 +1,8 @@
 
 package main.emplyees;
+import dao.SanPhamDAO;
+import java.util.ArrayList;
+import model.SanPhamModel;
 import view.employees.MainJFrame;
 //import doanjava.nhom6.qlchbqa.view.DangnhapJDialog;
 //import javax.swing.JFrame;
@@ -11,7 +14,9 @@ import view.employees.MainJFrame;
  */
 public class Main {
     public static void main(String[] args) {
+        
     new MainJFrame().setVisible(true);
+ 
     
     
     /*DangnhapJDialog dialog= new DangnhapJDialog(null,true);
@@ -43,4 +48,5 @@ public class Main {
     
     }
 }
+
 

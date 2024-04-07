@@ -4,6 +4,10 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.awt.event.*;
+import java.util.ArrayList;
+import dao.SanPhamDAO;
+import model.SanPhamModel;
+
 
 
 //import java.awt.event.ActionEvent;
@@ -15,71 +19,110 @@ import java.awt.event.*;
  *
  * @author hyn09
  */
-public class SanPham extends javax.swing.JPanel implements ActionListener{
+public class SanPham extends javax.swing.JPanel {
+    private DefaultTableModel tblModel;
+    private static ArrayList<SanPhamModel> arms;
    
     public SanPham() {
         initComponents();
+       jTable1_SP.setDefaultEditor(Object.class, null);
         initTable();
-        
-        btnThem.addActionListener((ActionEvent e) -> {
-    JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(SanPham.this);
-                ThemXoaSua dialog = new ThemXoaSua(parentFrame, true);
-                dialog.setVisible(true);
-        });
-        btnSua.addActionListener((ActionEvent e) -> {
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(SanPham.this);
-        ThemXoaSua dialog = new ThemXoaSua(parentFrame, true);
-        dialog.setVisible(true);
-    });
+        arms = SanPhamDAO.getInstance().selectAll();
+        loadDataToTable(arms);
     }
-    /*private void initButtonEvent() {
-        btnThem = new JButton("Thêm");
-        btnThem.addMouseListener(new MouseAdapter() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            // Hiển thị khung Thêm sản phẩm từ file ThemXoaSua
-            ThemXoaSua dialog = new ThemXoaSua();
-            dialog.setTitle("Thêm Sản Phẩm");
-            dialog.setVisible(true);
+
+    public final void initTable() {
+        tblModel = new DefaultTableModel();
+        String[] headerTbl = new String[]{"Mã SP", "Tên sản phẩm","Số lượng", "Giá", "Xuất xứ"};
+        tblModel.setColumnIdentifiers(headerTbl);
+        jTable1_SP.setModel(tblModel);
+        jTable1_SP.getColumnModel().getColumn(0).setPreferredWidth(10);
+        jTable1_SP.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTable1_SP.getColumnModel().getColumn(2).setPreferredWidth(20);
+        jTable1_SP.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jTable1_SP.getColumnModel().getColumn(3).setPreferredWidth(200);
+    }
+
+    public void loadDataToTable(ArrayList<SanPhamModel> sp) {
+        try {
+            tblModel.setRowCount(0);
+            for (SanPhamModel i : sp) {
+                tblModel.addRow(new Object[]{
+                    i.getMaSP(), i.getTenSP(), i.getSoLuongSP(), i.getGiaSP(),
+                    i.getXuatXu()
+                });
+            }
+        } catch (Exception e) {
         }
-    });
-    // Thêm nút "Thêm" vào JPanel
-    add(btnThem);
-    }*/
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    private void initTable() {
-        Object[][] data = {
-            {"1", "Áo thun", "Vàng", "ML"},
-            {"2", "Quần Jean", "Xanh", "XL"},
-            {"3", "Áo Sơ Mi", "Trắng", "M"},
-            {"4", "Quần Short", "Đen", "L"},
-            {"5", "Áo len", "Xám", "M"},
-            {"6", "Áo khoác", "Đen", "L"},
-            {"7", "Quần Jogger", "Navy", "S"},
-            {"8", "Áo phông", "Đỏ", "XL"}
-        };
 
-        // Tiêu đề cột
-        String[] columnNames = {"ID", "Tên", "Màu sắc", "Kích thước"};
-
-        // Tạo một đối tượng DefaultTableModel với dữ liệu và tiêu đề cột đã cho
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-
-        // Tạo JTable với DefaultTableModel đã tạo
-        JTable table = new JTable(model);
-
-        // Tạo JScrollPane để hiển thị JTable nếu cần
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        // Thêm JScrollPane chứa JTable vào JPanel table_sanpham
-        table_sanpham.setLayout(new BorderLayout());
-        table_sanpham.add(scrollPane, BorderLayout.CENTER);
+    public SanPhamModel getSPSelect() {
+        int i_row = jTable1_SP.getSelectedRow();
+        SanPhamModel sp = SanPhamDAO.getInstance().selectAll().get(i_row);
+        return sp;
+    }
+//    public SanPham() {
+//        initTable();
+//        initTable();
+//        
+//        btnThem.addActionListener((ActionEvent e) -> {
+//    JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(SanPham.this);
+//                ThemXoaSua dialog = new ThemXoaSua(parentFrame, true);
+//                dialog.setVisible(true);
+//        });
+//        btnSua.addActionListener((ActionEvent e) -> {
+//        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(SanPham.this);
+//        ThemXoaSua dialog = new ThemXoaSua(parentFrame, true);
+//        dialog.setVisible(true);
+//    });
+//    }
+//    /*private void initButtonEvent() {
+//        btnThem = new JButton("Thêm");
+//        btnThem.addMouseListener(new MouseAdapter() {
+//        @Override
+//        public void mouseClicked(MouseEvent e) {
+//            // Hiển thị khung Thêm sản phẩm từ file ThemXoaSua
+//            ThemXoaSua dialog = new ThemXoaSua();
+//            dialog.setTitle("Thêm Sản Phẩm");
+//            dialog.setVisible(true);
+//        }
+//    });
+//    // Thêm nút "Thêm" vào JPanel
+//    add(btnThem);
+//    }*/
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+//    }
+//    private void initTable() {
+//        Object[][] data = {
+//            {"1", "Áo thun", "Vàng", "ML"},
+//            {"2", "Quần Jean", "Xanh", "XL"},
+//            {"3", "Áo Sơ Mi", "Trắng", "M"},
+//            {"4", "Quần Short", "Đen", "L"},
+//            {"5", "Áo len", "Xám", "M"},
+//            {"6", "Áo khoác", "Đen", "L"},
+//            {"7", "Quần Jogger", "Navy", "S"},
+//            {"8", "Áo phông", "Đỏ", "XL"}
+//        };
+//
+//        // Tiêu đề cột
+//        String[] columnNames = {"ID", "Tên", "Màu sắc", "Kích thước"};
+//
+//        // Tạo một đối tượng DefaultTableModel với dữ liệu và tiêu đề cột đã cho
+//        DefaultTableModel model = new DefaultTableModel(data, columnNames);
+//
+//        // Tạo JTable với DefaultTableModel đã tạo
+//        JTable table = new JTable(model);
+//
+//        // Tạo JScrollPane để hiển thị JTable nếu cần
+//        JScrollPane scrollPane = new JScrollPane(table);
+//
+//        // Thêm JScrollPane chứa JTable vào JPanel table_sanpham
+//        table_sanpham.setLayout(new BorderLayout());
+//        table_sanpham.add(scrollPane, BorderLayout.CENTER);
      
-    }
- 
+//    }
 
     
 
@@ -104,7 +147,8 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        table_sanpham = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1_SP = new javax.swing.JTable();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -129,6 +173,11 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
 
         jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTextField1.setText("Nhập nội dung tìm kiếm... ");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         btnThem.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnThem.setText("Thêm");
@@ -193,33 +242,36 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
                 .addGap(14, 14, Short.MAX_VALUE))
         );
 
-        table_sanpham.setBackground(new java.awt.Color(224, 224, 224));
-
-        javax.swing.GroupLayout table_sanphamLayout = new javax.swing.GroupLayout(table_sanpham);
-        table_sanpham.setLayout(table_sanphamLayout);
-        table_sanphamLayout.setHorizontalGroup(
-            table_sanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        table_sanphamLayout.setVerticalGroup(
-            table_sanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 203, Short.MAX_VALUE)
-        );
+        jTable1_SP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1_SP);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(table_sanpham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(table_sanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
    
@@ -229,7 +281,13 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        ThemXoaSua a = new ThemXoaSua((JFrame) SwingUtilities.getWindowAncestor(SanPham.this), true);
+        a.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -241,8 +299,9 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1_SP;
     private javax.swing.JTextField jTextField1;
     private java.awt.PopupMenu popupMenu1;
-    private javax.swing.JPanel table_sanpham;
     // End of variables declaration//GEN-END:variables
 }

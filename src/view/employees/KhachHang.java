@@ -1,8 +1,11 @@
 
 package view.employees;
+import dao.KhachHangDAO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
+import model.KhachHangModel;
 /**
  *
  * @author hyn09
@@ -12,35 +15,74 @@ public class KhachHang extends javax.swing.JPanel {
     /**
      * Creates new form KhachHangJPanel
      */
+    private DefaultTableModel tblModel;
+    private static ArrayList<KhachHangModel> arms;
+   
     public KhachHang() {
         initComponents();
+        jTable1_KH.setDefaultEditor(Object.class, null);
         initTable();
+        arms = KhachHangDAO.getInstance().selectAll();
+        loadDataToTable(arms);
     }
-    
-    private void initTable() {
-        Object[][] customerData = {
-        {"1", "John Doe", "john.doe@example.com", "1234567890", "123 Main St"},
-        {"2", "Jane Smith", "jane.smith@example.com", "0987654321", "456 Elm St"},
-        {"3", "Alice Johnson", "alice.johnson@example.com", "5551234567", "789 Oak St"},
-        {"4", "Bob Brown", "bob.brown@example.com", "3216549870", "101 Pine St"}
-    };
 
-    String[] customerColumnNames = {"ID", "Tên", "Email", "Số điện thoại", "Địa chỉ"};
-
-        // Tạo một đối tượng DefaultTableModel với dữ liệu và tiêu đề cột đã cho
-        DefaultTableModel model = new DefaultTableModel(customerData, customerColumnNames);
-
-        // Tạo JTable với DefaultTableModel đã tạo
-        JTable table = new JTable(model);
-
-        // Tạo JScrollPane để hiển thị JTable nếu cần
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        // Thêm JScrollPane chứa JTable vào JPanel table_sanpham
-        table_khachhang.setLayout(new BorderLayout());
-        table_khachhang.add(scrollPane, BorderLayout.CENTER);
-     
+    public final void initTable() {
+        tblModel = new DefaultTableModel();
+        String[] headerTbl = new String[]{"Mã KH", "Tên khách hàng","Số điện thoại", "Email"};
+        tblModel.setColumnIdentifiers(headerTbl);
+        jTable1_KH.setModel(tblModel);
+        jTable1_KH.getColumnModel().getColumn(0).setPreferredWidth(10);
+        jTable1_KH.getColumnModel().getColumn(1).setPreferredWidth(300);
+        jTable1_KH.getColumnModel().getColumn(2).setPreferredWidth(20);
+        jTable1_KH.getColumnModel().getColumn(3).setPreferredWidth(100);
     }
+
+    public void loadDataToTable(ArrayList<KhachHangModel> sp) {
+        try {
+            tblModel.setRowCount(0);
+            for (KhachHangModel i : sp) {
+                tblModel.addRow(new Object[]{
+                    i.getMaKH(), i.getTenKH(), i.getSdtKH(), i.getEmailKH()
+                });
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public KhachHangModel getSPSelect() {
+        int i_row = jTable1_KH.getSelectedRow();
+        KhachHangModel sp = KhachHangDAO.getInstance().selectAll().get(i_row);
+        return sp;
+    }
+//    public KhachHang() {
+//        initComponents();
+//        initTable();
+//    }
+//    
+//    private void initTable() {
+//        Object[][] customerData = {
+//        {"1", "John Doe", "john.doe@example.com", "1234567890", "123 Main St"},
+//        {"2", "Jane Smith", "jane.smith@example.com", "0987654321", "456 Elm St"},
+//        {"3", "Alice Johnson", "alice.johnson@example.com", "5551234567", "789 Oak St"},
+//        {"4", "Bob Brown", "bob.brown@example.com", "3216549870", "101 Pine St"}
+//    };
+//
+//    String[] customerColumnNames = {"ID", "Tên", "Email", "Số điện thoại", "Địa chỉ"};
+//
+//        // Tạo một đối tượng DefaultTableModel với dữ liệu và tiêu đề cột đã cho
+//        DefaultTableModel model = new DefaultTableModel(customerData, customerColumnNames);
+//
+//        // Tạo JTable với DefaultTableModel đã tạo
+//        JTable table = new JTable(model);
+//
+//        // Tạo JScrollPane để hiển thị JTable nếu cần
+//        JScrollPane scrollPane = new JScrollPane(table);
+//
+//        // Thêm JScrollPane chứa JTable vào JPanel table_sanpham
+//        table_khachhang.setLayout(new BorderLayout());
+//        table_khachhang.add(scrollPane, BorderLayout.CENTER);
+//     
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,7 +92,6 @@ public class KhachHang extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        table_khachhang = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -60,21 +101,10 @@ public class KhachHang extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1_KH = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
-
-        table_khachhang.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout table_khachhangLayout = new javax.swing.GroupLayout(table_khachhang);
-        table_khachhang.setLayout(table_khachhangLayout);
-        table_khachhangLayout.setHorizontalGroup(
-            table_khachhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1061, Short.MAX_VALUE)
-        );
-        table_khachhangLayout.setVerticalGroup(
-            table_khachhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 357, Short.MAX_VALUE)
-        );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -126,7 +156,7 @@ public class KhachHang extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,14 +180,28 @@ public class KhachHang extends javax.swing.JPanel {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        jTable1_KH.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1_KH);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(table_khachhang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -165,7 +209,8 @@ public class KhachHang extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(table_khachhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -183,7 +228,8 @@ public class KhachHang extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1_KH;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JPanel table_khachhang;
     // End of variables declaration//GEN-END:variables
 }
