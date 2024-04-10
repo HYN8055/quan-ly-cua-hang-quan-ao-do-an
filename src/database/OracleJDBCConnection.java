@@ -16,9 +16,9 @@ public class OracleJDBCConnection {
 			// Dang ky Oracle Driver voi DriverManager
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			//Cac thong so
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url = "jdbc:oracle:thin:@localhost:1521:orcl21";
 			String userName = "SYS AS SYSDBA";
-			String password = "Pthaonhu131104@";
+			String password = "Huynhyennhi8055";
 			//Tao ket noi 
 			c = DriverManager.getConnection(url, userName, password);
 		} catch (Exception e) {
