@@ -2,7 +2,10 @@
 package main.emplyees;
 import dao.SanPhamDAO;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import model.SanPhamModel;
+import view.employees.DangNhap;
+import view.employees.HoaDon;
 import view.employees.MainJFrame;
 //import doanjava.nhom6.qlchbqa.view.DangnhapJDialog;
 //import javax.swing.JFrame;

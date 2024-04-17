@@ -14,14 +14,14 @@ import java.util.Objects;
 public class SanPhamModel {
     private String maSP;
     private String tenSP;
-    private double giaSP;
     private int soLuongSP;
+    private double giaSP;
     private String xuatXu;
 
     public SanPhamModel() {
     }
     
-    public SanPhamModel(String maSP, String tenSP, double giaSP, int soLuongSP, String xuatXu) {
+    public SanPhamModel(String maSP, String tenSP, int soLuongSP, double giaSP, String xuatXu) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.giaSP = giaSP;

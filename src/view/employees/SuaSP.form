@@ -279,7 +279,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nh&#x1ead;p m&#xe3; s&#x1ea3;n ph&#x1ea9;m..."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder>
@@ -295,7 +294,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nh&#x1ead;p t&#xea;n s&#x1ea3;n ph&#x1ea9;m..."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder>
@@ -311,7 +309,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nh&#x1ead;p m&#xe3; nh&#xe0; cung c&#x1ea5;p..."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder>
@@ -327,7 +324,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nh&#x1ead;p gi&#xe1; b&#xe1;n..."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder>
@@ -343,7 +339,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nh&#x1ead;p gi&#xe1; g&#x1ed1;c..."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder>
@@ -359,7 +354,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial" size="12" style="2"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nh&#x1ead;p xu&#x1ea5;t x&#x1ee9;..."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder>

@@ -3,34 +3,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package view.employees;
-import javax.swing.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
-import java.awt.BorderLayout;
-import java.awt.event.*;
+
 /**
  *
  * @author hyn09
  */
-public class HoaDon extends javax.swing.JPanel implements ActionListener{
+public class XuatHang extends javax.swing.JPanel implements ActionListener{
     private DefaultTableModel tblModel;
     /**
-     * Creates new form HoaDonJPanel
+     * Creates new form XuatHang
      */
-    public HoaDon() {
+    public XuatHang() {
         initComponents();
         initTable();
         
         btnSua.addActionListener((ActionEvent e) -> {
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(HoaDon.this);
-                SuaHD dialog = new SuaHD(parentFrame, true);
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(XuatHang.this);
+                SuaPX dialog = new SuaPX(parentFrame, true);
                 dialog.setVisible(true);});
         btnThem.addActionListener((ActionEvent e) -> {
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(HoaDon.this);
-                ThemHD dialog = new ThemHD(parentFrame, true);
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(XuatHang.this);
+                ThemPX dialog = new ThemPX(parentFrame, true);
                 dialog.setVisible(true);});
-        btnXemCTHD.addActionListener((ActionEvent e) -> {
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(HoaDon.this);
-        XemCTHD dialog = new XemCTHD(parentFrame, true);
+        btnXemCTPX.addActionListener((ActionEvent e) -> {
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(XuatHang.this);
+        XemCTPX dialog = new XemCTPX(parentFrame, true);
         dialog.setVisible(true);
     });
     }
@@ -42,8 +45,9 @@ public class HoaDon extends javax.swing.JPanel implements ActionListener{
         tblModel = new DefaultTableModel();
         String[] headerTbl = new String[]{"Mã hóa đơn", "Mã khách hàng","Mã nhân viên", "Ngày in", "Tổng tiền","Tình trạng"};
         tblModel.setColumnIdentifiers(headerTbl);
-        jTable_HD.setModel(tblModel);
+        jTable_PX.setModel(tblModel);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,10 +62,10 @@ public class HoaDon extends javax.swing.JPanel implements ActionListener{
         jButton2 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
-        btnXemCTHD = new javax.swing.JButton();
+        btnXemCTPX = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
-        table_dshd = new javax.swing.JScrollPane();
-        jTable_HD = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_PX = new javax.swing.JTable();
 
         jPanel2.setBackground(new java.awt.Color(230, 255, 243));
 
@@ -90,13 +94,13 @@ public class HoaDon extends javax.swing.JPanel implements ActionListener{
             }
         });
 
-        btnXemCTHD.setBackground(new java.awt.Color(32, 178, 170));
-        btnXemCTHD.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnXemCTHD.setForeground(new java.awt.Color(255, 255, 255));
-        btnXemCTHD.setText("Xem chi tiết");
-        btnXemCTHD.addActionListener(new java.awt.event.ActionListener() {
+        btnXemCTPX.setBackground(new java.awt.Color(32, 178, 170));
+        btnXemCTPX.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnXemCTPX.setForeground(new java.awt.Color(255, 255, 255));
+        btnXemCTPX.setText("Xem chi tiết");
+        btnXemCTPX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXemCTHDActionPerformed(evt);
+                btnXemCTPXActionPerformed(evt);
             }
         });
 
@@ -117,12 +121,12 @@ public class HoaDon extends javax.swing.JPanel implements ActionListener{
                 .addGap(18, 18, 18)
                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnXemCTHD, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXemCTPX, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(124, 124, 124)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,15 +136,13 @@ public class HoaDon extends javax.swing.JPanel implements ActionListener{
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnXemCTHD, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXemCTPX, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        table_dshd.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTable_HD.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_PX.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -151,46 +153,47 @@ public class HoaDon extends javax.swing.JPanel implements ActionListener{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        table_dshd.setViewportView(jTable_HD);
+        jScrollPane1.setViewportView(jTable_PX);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(table_dshd, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(table_dshd, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnXemCTHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemCTHDActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnXemCTHDActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void btnXemCTPXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemCTPXActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXemCTPXActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnXemCTHD;
+    private javax.swing.JButton btnXemCTPX;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTable jTable_HD;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable_PX;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JScrollPane table_dshd;
     // End of variables declaration//GEN-END:variables
 }

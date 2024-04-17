@@ -52,6 +52,37 @@ public class TimSanPham {
         }
         return result;
     }
+    
+    public ArrayList<SanPhamModel> searchSoLuongSP(String text) {
+        ArrayList<SanPhamModel> result = new ArrayList<>();
+        ArrayList<SanPhamModel> arms = SanPhamDAO.getInstance().selectAll();
+        for (var sp : arms) {
+            if (text.length() != 0) {
+                if (sp.getSoLuongSP() > Integer.parseInt(text)) {
+                    result.add(sp);
+                }
+            } else {
+                result.add(sp);
+            }
+        }
+        return result;
+    }
+    
+    public ArrayList<SanPhamModel> searchGiaSP(String text) {
+        ArrayList<SanPhamModel> result = new ArrayList<>();
+        ArrayList<SanPhamModel> arms = SanPhamDAO.getInstance().selectAll();
+        for (var sp : arms) {
+            if (text.length() != 0) {
+                if (sp.getGiaSP() > Integer.parseInt(text)) {
+                    result.add(sp);
+                }
+            }
+            else {
+                result.add(sp);
+            }
+        }
+        return result;
+    }
 
     public ArrayList<SanPhamModel> searchXuatXuSP(String text) {
         ArrayList<SanPhamModel> result = new ArrayList<>();

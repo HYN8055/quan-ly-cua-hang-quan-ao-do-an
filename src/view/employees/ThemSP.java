@@ -4,6 +4,11 @@
  */
 package view.employees;
 
+import java.util.ArrayList;
+import dao.SanPhamDAO;
+import javax.swing.JOptionPane;
+import model.SanPhamModel;
+
 /**
  *
  * @author hyn09
@@ -13,9 +18,13 @@ public class ThemSP extends javax.swing.JDialog {
     /**
      * Creates new form ThemSP
      */
+    private SanPham owner;
+
     public ThemSP(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        txtMaSP.setText(createId());
     }
 
     /**
@@ -30,23 +39,21 @@ public class ThemSP extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        BtnAddImg = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtMaSP = new javax.swing.JTextField();
+        txtTenSP = new javax.swing.JTextField();
+        txtMaNCC = new javax.swing.JTextField();
+        txtGiaSP = new javax.swing.JTextField();
+        txtXuatXu = new javax.swing.JTextField();
+        txtSoLuongSP = new javax.swing.JTextField();
+        BtnAddSP = new javax.swing.JButton();
+        BtnCancelSP = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -77,10 +84,10 @@ public class ThemSP extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setForeground(new java.awt.Color(0, 179, 179));
 
-        jButton1.setBackground(new java.awt.Color(230, 255, 243));
-        jButton1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 179, 179));
-        jButton1.setText("Hình minh họa");
+        BtnAddImg.setBackground(new java.awt.Color(230, 255, 243));
+        BtnAddImg.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        BtnAddImg.setForeground(new java.awt.Color(0, 179, 179));
+        BtnAddImg.setText("Hình minh họa");
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Mã sản phẩm");
@@ -94,52 +101,49 @@ public class ThemSP extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Giá bán");
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel6.setText("Giá gốc");
-
         jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel7.setText("Xuất xứ");
 
         jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel8.setText("Số lượng ");
 
-        jTextField1.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField1.setText("Nhập mã sản phẩm...");
-        jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
+        txtMaSP.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        txtMaSP.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
 
-        jTextField2.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField2.setText("Nhập tên sản phẩm...");
-        jTextField2.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
+        txtTenSP.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        txtTenSP.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
 
-        jTextField3.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField3.setText("Nhập mã nhà cung cấp...");
-        jTextField3.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
+        txtMaNCC.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        txtMaNCC.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
 
-        jTextField4.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField4.setText("Nhập giá bán...");
-        jTextField4.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
+        txtGiaSP.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        txtGiaSP.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
 
-        jTextField5.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField5.setText("Nhập giá gốc...");
-        jTextField5.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
+        txtXuatXu.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        txtXuatXu.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
 
-        jTextField6.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField6.setText("Nhập xuất xứ...");
-        jTextField6.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
+        txtSoLuongSP.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        txtSoLuongSP.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
 
-        jTextField7.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField7.setText("Nhập số lượng...");
-        jTextField7.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(102, 204, 255)));
+        BtnAddSP.setBackground(new java.awt.Color(230, 255, 243));
+        BtnAddSP.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        BtnAddSP.setForeground(new java.awt.Color(0, 179, 179));
+        BtnAddSP.setText("Thêm ");
+        BtnAddSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAddSPActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(230, 255, 243));
-        jButton2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(0, 179, 179));
-        jButton2.setText("Thêm ");
-
-        jButton3.setBackground(new java.awt.Color(230, 255, 243));
-        jButton3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 179, 179));
-        jButton3.setText("Hủy");
+        BtnCancelSP.setBackground(new java.awt.Color(230, 255, 243));
+        BtnCancelSP.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        BtnCancelSP.setForeground(new java.awt.Color(0, 179, 179));
+        BtnCancelSP.setText("Hủy");
+        BtnCancelSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelSPActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -149,7 +153,7 @@ public class ThemSP extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
-                        .addComponent(jButton1)
+                        .addComponent(BtnAddImg)
                         .addGap(73, 73, 73)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -159,22 +163,20 @@ public class ThemSP extends javax.swing.JDialog {
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(BtnAddSP)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField1)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                    .addComponent(jTextField4)
-                    .addComponent(jTextField5)
-                    .addComponent(jTextField6)
-                    .addComponent(jTextField7))
+                        .addComponent(BtnCancelSP, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaSP)
+                    .addComponent(txtTenSP)
+                    .addComponent(txtMaNCC, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                    .addComponent(txtGiaSP)
+                    .addComponent(txtXuatXu)
+                    .addComponent(txtSoLuongSP))
                 .addGap(71, 71, 71))
         );
         jPanel2Layout.setVerticalGroup(
@@ -184,42 +186,38 @@ public class ThemSP extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(BtnAddImg)
+                            .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel2)
                         .addGap(10, 10, 10)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGiaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txtSoLuongSP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtXuatXu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
+                .addGap(71, 71, 71)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(BtnAddSP)
+                    .addComponent(BtnCancelSP))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -240,7 +238,70 @@ public class ThemSP extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+             
+    private void BtnCancelSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelSPActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_BtnCancelSPActionPerformed
 
+    private void BtnAddSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddSPActionPerformed
+        // TODO add your handling code here:
+        String maSP = txtMaSP.getText();
+        String tenSP = txtTenSP.getText();
+        String ncc = txtMaNCC.getText();
+        double dongia = 0;
+        int soluong = 0;
+        try {
+            dongia = Double.parseDouble(txtGiaSP.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đơn giá ở dạng số !");
+        }
+        String xuatxu = txtXuatXu.getText();
+        try {
+            soluong = java.lang.Integer.parseInt(txtSoLuongSP.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng ở dạng số !");
+        }
+        if (maSP.equals("") && tenSP.equals("") && ncc.equals("")&& xuatxu.equals("")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin !");
+        } else {
+            SanPhamModel sp = new SanPhamModel(maSP, tenSP, soluong, dongia, xuatxu);
+            try {
+                SanPhamDAO.getInstance().insert(sp);
+                this.dispose();
+                JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công !");
+                owner.loadDataToTable();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Thêm sản phẩm thất bại !");
+            }
+    }
+
+    }//GEN-LAST:event_BtnAddSPActionPerformed
+    public String createId() {
+        ArrayList<SanPhamModel> spAll = SanPhamDAO.getInstance().selectAll();
+        ArrayList<SanPhamModel> all = new ArrayList<SanPhamModel>();
+        for (SanPhamModel sp : all) {
+            if (sp.getMaSP().contains("QA")) {
+                all.add(sp);
+            }
+        }
+        int i = all.size();
+        String check ="check";
+        while(check.length()!=0){
+            i++;
+            for (SanPhamModel sp : all) {
+                if(sp.getMaSP().equals("QA"+i)){
+                    check="";
+                }
+            }
+            if(check.length()==0){
+                check ="check";
+            } else {
+                check = "";
+            }
+        }
+        return "QA" + i;
+    }
     /**
      * @param args the command line arguments
      */
@@ -282,27 +343,24 @@ public class ThemSP extends javax.swing.JDialog {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton BtnAddImg;
+    private javax.swing.JButton BtnAddSP;
+    private javax.swing.JButton BtnCancelSP;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField txtGiaSP;
+    private javax.swing.JTextField txtMaNCC;
+    private javax.swing.JTextField txtMaSP;
+    private javax.swing.JTextField txtSoLuongSP;
+    private javax.swing.JTextField txtTenSP;
+    private javax.swing.JTextField txtXuatXu;
     // End of variables declaration//GEN-END:variables
 }

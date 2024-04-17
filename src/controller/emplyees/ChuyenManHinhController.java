@@ -2,7 +2,6 @@
 package controller.emplyees;
 import view.employees.TrangChu;
 import view.employees.SanPham;
-import view.employees.KhachHang;
 import bean.employees.DanhMucBean;
 import view.employees.HoaDon;
 import view.employees.NhaCungCap;
@@ -12,6 +11,10 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.util.*;
 import java.awt.event.*;
+import view.employees.NhapHang;
+import view.employees.PhieuDoiTra;
+import view.employees.ThongKe;
+import view.employees.XuatHang;
 
 /**
  *
@@ -66,9 +69,12 @@ public class ChuyenManHinhController {
             switch (kind){
                 case "TrangChu" -> node = new TrangChu();
                 case "SanPham" -> node=new SanPham();
-                case "KhachHang" -> node=new KhachHang();
                 case "NhaCungCap" -> node=new NhaCungCap();
                 case "HoaDon" -> node=new HoaDon();
+                case "PhieuDoiTra" -> node=new PhieuDoiTra();
+                case "ThongKe" -> node=new ThongKe();
+                case "NhapHang" -> node=new NhapHang();
+                case "PhieuXuat" -> node=new XuatHang();
                 default -> {
                     node = new TrangChu();
                 }

@@ -97,7 +97,7 @@ public class SanPhamDAO implements DAOInterface<SanPhamModel> {
                 double giaSP = rs.getDouble("giaban");
                 int soLuongSP = rs.getInt("soluong");
                 String xuatXu = rs.getString("xuatxu");
-                SanPhamModel sp = new SanPhamModel(maSP, tenSP, giaSP, soLuongSP, xuatXu);
+                SanPhamModel sp = new SanPhamModel(maSP, tenSP, soLuongSP, giaSP, xuatXu);
                 ketQua.add(sp);
             }
         } catch (Exception e) {
@@ -122,7 +122,7 @@ public class SanPhamDAO implements DAOInterface<SanPhamModel> {
                 double giaSP = rs.getDouble("giasp");
                 int soLuongSP = rs.getInt("soluong");
                 String xuatXu = rs.getString("xuatxu");
-                ketQua = new model.SanPhamModel(maSP, tenSP, giaSP, soLuongSP, xuatXu);
+                ketQua = new model.SanPhamModel(maSP, tenSP, soLuongSP, giaSP, xuatXu);
             }
         } catch (Exception e) {
             // TODO: handle exception

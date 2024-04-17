@@ -105,27 +105,21 @@ public class SuaSP extends javax.swing.JDialog {
         jLabel15.setText("Số lượng ");
 
         jTextField8.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField8.setText("Nhập mã sản phẩm...");
         jTextField8.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 255, 255), new java.awt.Color(102, 204, 255)));
 
         jTextField9.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField9.setText("Nhập tên sản phẩm...");
         jTextField9.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 255, 255), new java.awt.Color(102, 204, 255)));
 
         jTextField10.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField10.setText("Nhập mã nhà cung cấp...");
         jTextField10.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 255, 255), new java.awt.Color(102, 204, 255)));
 
         jTextField11.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField11.setText("Nhập giá bán...");
         jTextField11.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 255, 255), new java.awt.Color(102, 204, 255)));
 
         jTextField12.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField12.setText("Nhập giá gốc...");
         jTextField12.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 255, 255), new java.awt.Color(102, 204, 255)));
 
         jTextField13.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
-        jTextField13.setText("Nhập xuất xứ...");
         jTextField13.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 255, 255), new java.awt.Color(102, 204, 255)));
 
         jTextField14.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N

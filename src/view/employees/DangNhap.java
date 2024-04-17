@@ -1,24 +1,49 @@
 
 package view.employees;
 //import doanjava.nhom6.qlchbqa.controller.TaikhoanCtrl;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 //import java.awt.event.*;
 
 /**
  *
  * @author hyn09
  */
-public class DangNhap extends javax.swing.JDialog {
+public class DangNhap extends javax.swing.JDialog implements ActionListener{
 
  
     public DangNhap(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
+        setTitle("Đăng nhập hệ thống");
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setVisible(true);
+        // Thiết lập sự kiện lắng nghe cho nút đăng nhập
+        btnDangNhap.addActionListener(e -> {
+            // Hiển thị MainJFrame khi đăng nhập thành công
+            JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(DangNhap.this);
+            MainJFrame mainFrame = new MainJFrame();
+            mainFrame.setVisible(true);
+            // Đóng cửa sổ đăng nhập sau khi đăng nhập thành công
+            dispose();
+        });
+
+        
+
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 public JButton getBtnDangNhap() {
  return btnDangNhap; // btnDangNhap là tên của nút đăng nhập trong giao diện của bạn
 }
+
 //    public void setLoginButtonEvent() {
 //     btnDangNhap.addMouseListener(new MouseAdapter(){
 //         @Override
@@ -51,6 +76,7 @@ public JButton getBtnDangNhap() {
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         btnDangNhap = new javax.swing.JButton();
+        btnDangNhap1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -59,24 +85,31 @@ public JButton getBtnDangNhap() {
         jPanel4.setBackground(new java.awt.Color(152, 225, 225));
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(7, 80, 176));
         jLabel4.setText("Tên đăng nhập");
 
         jTextField3.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        jTextField3.setText("Nhập tên đăng nhập...");
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(7, 80, 176));
         jLabel5.setText("Mật khẩu");
 
         jTextField4.setFont(new java.awt.Font("Arial", 2, 14)); // NOI18N
-        jTextField4.setText("Nhập mật khẩu...");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
             }
         });
 
+        btnDangNhap.setBackground(new java.awt.Color(0, 179, 143));
         btnDangNhap.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
         btnDangNhap.setText("Đăng nhập");
+
+        btnDangNhap1.setBackground(new java.awt.Color(0, 179, 143));
+        btnDangNhap1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnDangNhap1.setForeground(new java.awt.Color(255, 255, 255));
+        btnDangNhap1.setText("Quên mật khẩu");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -88,27 +121,27 @@ public JButton getBtnDangNhap() {
                     .addComponent(jLabel4)
                     .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
-                .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(126, 126, 126))
+                    .addComponent(jTextField4)
+                    .addComponent(btnDangNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDangNhap1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(165, 165, 165)
+                .addGap(114, 114, 114)
                 .addComponent(jLabel4)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(51, 51, 51)
                 .addComponent(btnDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDangNhap1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -172,6 +205,7 @@ public JButton getBtnDangNhap() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangNhap;
+    private javax.swing.JButton btnDangNhap1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
