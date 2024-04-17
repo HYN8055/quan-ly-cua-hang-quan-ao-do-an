@@ -11,25 +11,25 @@ import java.awt.event.*;
  *
  * @author hyn09
  */
-public class HoaDon extends javax.swing.JPanel implements ActionListener{
+public class HoaDonBH extends javax.swing.JPanel implements ActionListener{
     private DefaultTableModel tblModel;
     /**
      * Creates new form HoaDonJPanel
      */
-    public HoaDon() {
+    public HoaDonBH() {
         initComponents();
         initTable();
         
         btnSua.addActionListener((ActionEvent e) -> {
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(HoaDon.this);
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(HoaDonBH.this);
                 SuaHD dialog = new SuaHD(parentFrame, true);
                 dialog.setVisible(true);});
         btnThem.addActionListener((ActionEvent e) -> {
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(HoaDon.this);
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(HoaDonBH.this);
                 ThemHD dialog = new ThemHD(parentFrame, true);
                 dialog.setVisible(true);});
         btnXemCTHD.addActionListener((ActionEvent e) -> {
-        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(HoaDon.this);
+        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(HoaDonBH.this);
         XemCTHD dialog = new XemCTHD(parentFrame, true);
         dialog.setVisible(true);
     });

@@ -3,7 +3,7 @@ package controller.emplyees;
 import view.employees.TrangChu;
 import view.employees.SanPham;
 import bean.employees.DanhMucBean;
-import view.employees.HoaDon;
+import view.employees.HoaDonBH;
 import view.employees.NhaCungCap;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -11,9 +11,14 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.util.*;
 import java.awt.event.*;
+import view.employees.BanHang;
+import view.employees.DoiTraHang;
+import view.employees.HoaDonNH;
+import view.employees.HoaDonDT;
 import view.employees.NhapHang;
-import view.employees.PhieuDoiTra;
+import view.employees.TaiKhoan;
 import view.employees.ThongKe;
+import view.employees.ThongTin;
 import view.employees.XuatHang;
 
 /**
@@ -70,11 +75,15 @@ public class ChuyenManHinhController {
                 case "TrangChu" -> node = new TrangChu();
                 case "SanPham" -> node=new SanPham();
                 case "NhaCungCap" -> node=new NhaCungCap();
-                case "HoaDon" -> node=new HoaDon();
-                case "PhieuDoiTra" -> node=new PhieuDoiTra();
-                case "ThongKe" -> node=new ThongKe();
+                case "BanHang" -> node=new BanHang();
                 case "NhapHang" -> node=new NhapHang();
-                case "PhieuXuat" -> node=new XuatHang();
+                case "DoiTraHang" -> node=new DoiTraHang();
+                case "HoaDonBH" -> node=new HoaDonBH();
+                case "HoaDonNH" -> node=new HoaDonNH();
+                case "HoaDonDT" -> node=new HoaDonDT();
+                case "TaiKhoan" -> node=new TaiKhoan();
+                case "ThongKe" -> node=new ThongKe();
+                case "ThongTin" -> node=new ThongTin();
                 default -> {
                     node = new TrangChu();
                 }

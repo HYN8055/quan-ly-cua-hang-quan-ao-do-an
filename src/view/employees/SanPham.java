@@ -43,7 +43,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
     }
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Mã SP", "Tên sản phẩm","Số lượng", "Giá", "Xuất xứ"};
+        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm","Giá bán", "Giá nhập", "Số lượng"};
         tblModel.setColumnIdentifiers(headerTbl);
         jTable1_SP.setModel(tblModel);
         jTable1_SP.getColumnModel().getColumn(0).setPreferredWidth(10);

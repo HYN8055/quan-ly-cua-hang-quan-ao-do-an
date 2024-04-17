@@ -8,12 +8,12 @@ package view.employees;
  *
  * @author hyn09
  */
-public class NhapHang extends javax.swing.JPanel {
+public class HoaDonDT extends javax.swing.JPanel {
 
     /**
-     * Creates new form NhapHang
+     * Creates new form PhieuDoiTra
      */
-    public NhapHang() {
+    public HoaDonDT() {
         initComponents();
     }
 
@@ -30,11 +30,11 @@ public class NhapHang extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 695, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 448, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

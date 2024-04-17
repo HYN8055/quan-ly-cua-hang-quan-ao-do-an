@@ -8,12 +8,12 @@ package view.employees;
  *
  * @author hyn09
  */
-public class NhapHang extends javax.swing.JPanel {
+public class ThongTin extends javax.swing.JPanel {
 
     /**
-     * Creates new form NhapHang
+     * Creates new form ThongTin
      */
-    public NhapHang() {
+    public ThongTin() {
         initComponents();
     }
 

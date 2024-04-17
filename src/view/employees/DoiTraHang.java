@@ -8,12 +8,12 @@ package view.employees;
  *
  * @author hyn09
  */
-public class PhieuDoiTra extends javax.swing.JPanel {
+public class DoiTraHang extends javax.swing.JPanel {
 
     /**
-     * Creates new form PhieuDoiTra
+     * Creates new form DoiTraHang
      */
-    public PhieuDoiTra() {
+    public DoiTraHang() {
         initComponents();
     }
 
@@ -30,11 +30,11 @@ public class PhieuDoiTra extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 448, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
