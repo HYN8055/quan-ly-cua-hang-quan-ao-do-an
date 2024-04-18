@@ -16,11 +16,13 @@ public class OracleJDBCConnection {
 			// Dang ky Oracle Driver voi DriverManager
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			//Cac thong so
-			String url = "jdbc:oracle:thin:@localhost:1521:orcl21";
+                        String url01 = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String url02 = "jdbc:oracle:thin:@localhost:1521:orcl21";
 			String userName = "SYS AS SYSDBA";
-			String password = "Huynhyennhi8055";
+                        String password01 = "Pthaonhu131104@";
+			String password02 = "Huynhyennhi8055";
 			//Tao ket noi 
-			c = DriverManager.getConnection(url, userName, password);
+			c = DriverManager.getConnection(url01, userName, password01);
 		} catch (Exception e) {
 			// TODO: handle exception
                     JOptionPane.showMessageDialog(null, "Không thể kết nối đến cơ sở dữ liệu !","Lỗi", JOptionPane.ERROR_MESSAGE);

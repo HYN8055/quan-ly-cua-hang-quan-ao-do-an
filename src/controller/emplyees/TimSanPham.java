@@ -53,6 +53,28 @@ public class TimSanPham {
         return result;
     }
     
+    public ArrayList<SanPhamModel> searchChatLieuSP(String text) {
+        ArrayList<SanPhamModel> result = new ArrayList<>();
+        ArrayList<SanPhamModel> arms = SanPhamDAO.getInstance().selectAll();
+        for (var sp : arms) {
+            if (sp.getChatLieu().toLowerCase().contains(text.toLowerCase())) {
+                result.add(sp);
+            }
+        }
+        return result;
+    }
+    
+    public ArrayList<SanPhamModel> searchKichThuocSP(String text) {
+        ArrayList<SanPhamModel> result = new ArrayList<>();
+        ArrayList<SanPhamModel> arms = SanPhamDAO.getInstance().selectAll();
+        for (var sp : arms) {
+            if (sp.getKichThuoc().toLowerCase().contains(text.toLowerCase())) {
+                result.add(sp);
+            }
+        }
+        return result;
+    }
+    
     public ArrayList<SanPhamModel> searchSoLuongSP(String text) {
         ArrayList<SanPhamModel> result = new ArrayList<>();
         ArrayList<SanPhamModel> arms = SanPhamDAO.getInstance().selectAll();
@@ -73,7 +95,7 @@ public class TimSanPham {
         ArrayList<SanPhamModel> arms = SanPhamDAO.getInstance().selectAll();
         for (var sp : arms) {
             if (text.length() != 0) {
-                if (sp.getGiaSP() > Integer.parseInt(text)) {
+                if (sp.getGiabanSP() > Integer.parseInt(text)) {
                     result.add(sp);
                 }
             }
@@ -84,6 +106,17 @@ public class TimSanPham {
         return result;
     }
 
+    public ArrayList<SanPhamModel> searchMaNCCSP(String text) {
+        ArrayList<SanPhamModel> result = new ArrayList<>();
+        ArrayList<SanPhamModel> arms = SanPhamDAO.getInstance().selectAll();
+        for (var sp : arms) {
+            if (sp.getMaNCC().toLowerCase().contains(text.toLowerCase())) {
+                result.add(sp);
+            }
+        }
+        return result;
+    }
+    
     public ArrayList<SanPhamModel> searchXuatXuSP(String text) {
         ArrayList<SanPhamModel> result = new ArrayList<>();
         ArrayList<SanPhamModel> arms = SanPhamDAO.getInstance().selectAll();

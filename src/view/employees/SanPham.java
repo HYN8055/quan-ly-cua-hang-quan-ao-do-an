@@ -1,6 +1,7 @@
-
 package view.employees;
+
 import controller.emplyees.TimSanPham;
+import dao.NhaCungCapDAO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
@@ -43,36 +44,33 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
     }
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm","Giá bán", "Giá nhập", "Số lượng"};
+        String[] headerTbl = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Giá bán", "Số lượng", "Kích thước", "Chất liệu", "Mã NCC", "Xuất xứ"};
         tblModel.setColumnIdentifiers(headerTbl);
         jTable1_SP.setModel(tblModel);
-        jTable1_SP.getColumnModel().getColumn(0).setPreferredWidth(10);
-        jTable1_SP.getColumnModel().getColumn(1).setPreferredWidth(300);
-        jTable1_SP.getColumnModel().getColumn(2).setPreferredWidth(20);
-        jTable1_SP.getColumnModel().getColumn(3).setPreferredWidth(100);
-        jTable1_SP.getColumnModel().getColumn(3).setPreferredWidth(200);
-        
+        jTable1_SP.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jTable1_SP.getColumnModel().getColumn(1).setPreferredWidth(200);
+        jTable1_SP.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTable1_SP.getColumnModel().getColumn(3).setPreferredWidth(20);
+        jTable1_SP.getColumnModel().getColumn(4).setPreferredWidth(20);        
     }
 
     public void loadDataToTable() {
-        try {
-            SanPhamDAO spdao = new SanPhamDAO();
-            ArrayList<SanPhamModel> arms = spdao.selectAll();
-            tblModel.setRowCount(0);
-            for (SanPhamModel i : arms) {
-                tblModel.addRow(new Object[]{
-                    i.getMaSP(), i.getTenSP(), i.getSoLuongSP(),formatter.format(i.getGiaSP()) + "đ", i.getXuatXu()
-                });
-            }
-        } catch (Exception e) {  
+    try {
+        SanPhamDAO spdao = new SanPhamDAO();
+        ArrayList<SanPhamModel> arms = spdao.selectAll();
+        tblModel.setRowCount(0);
+        for (SanPhamModel i : arms) {
+            tblModel.addRow(new Object[]{
+                    i.getMaSP(), i.getTenSP(), formatter.format(i.getGiabanSP()) + "đ", i.getSoLuongSP(),
+                    i.getKichThuoc(), i.getChatLieu(), i.getMaNCC(), i.getXuatXu()
+            });
         }
+    } catch (Exception e) {
+        System.err.println(e.toString());
+        
     }
+}
 
-    public SanPhamModel getSPSelect() {
-        int i_row = jTable1_SP.getSelectedRow();
-        SanPhamModel sp = SanPhamDAO.getInstance().selectAll().get(i_row);
-        return sp;
-    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,6 +88,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         jComboBoxLuaChon = new javax.swing.JComboBox<>();
         jTextFieldSearch = new javax.swing.JTextField();
         btnThem = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
         btnCTSP = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1_SP = new javax.swing.JTable();
@@ -124,10 +123,15 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         jComboBoxLuaChon.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jComboBoxLuaChon.setForeground(new java.awt.Color(255, 255, 255));
         jComboBoxLuaChon.setMaximumRowCount(4);
-        jComboBoxLuaChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Mã sản phẩm", "Tên sản phẩm", "Màu sắc", "Kích cỡ" }));
+        jComboBoxLuaChon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Mã sản phẩm", "Tên sản phẩm", "Giá Bán", "Số lượng", "Chất liệu", "Kích thước", "Mã NCC", "Xuất xứ" }));
         jComboBoxLuaChon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxLuaChonActionPerformed(evt);
+            }
+        });
+        jComboBoxLuaChon.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jComboBoxLuaChonPropertyChange(evt);
             }
         });
 
@@ -153,6 +157,16 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
             }
         });
 
+        btnRefresh.setBackground(new java.awt.Color(32, 178, 170));
+        btnRefresh.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefresh.setText("Làm mới");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         btnCTSP.setBackground(new java.awt.Color(32, 178, 170));
         btnCTSP.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnCTSP.setForeground(new java.awt.Color(255, 255, 255));
@@ -168,32 +182,35 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(btnThem)
                 .addGap(18, 18, 18)
-                .addComponent(btnxoa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnxoa)
                 .addGap(18, 18, 18)
-                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSua)
                 .addGap(18, 18, 18)
                 .addComponent(btnCTSP)
-                .addGap(40, 40, 40)
-                .addComponent(jComboBoxLuaChon, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(jComboBoxLuaChon, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnxoa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxLuaChon, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCTSP, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(20, 20, 20))
         );
 
         jTable1_SP.setModel(new javax.swing.table.DefaultTableModel(
@@ -218,8 +235,8 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,12 +250,16 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
    
     private void jComboBoxLuaChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLuaChonActionPerformed
         // TODO add your handling code here:
+        String luaChon = jComboBoxLuaChon.getSelectedItem().toString();
+        String content = jTextFieldSearch.getText();
+        ArrayList<SanPhamModel> result = searchFn(luaChon, content);
+        loadDataToTableSearch(result);
     }//GEN-LAST:event_jComboBoxLuaChonActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(SanPham.this);
-        ThemSP dialog = new ThemSP(parentFrame, true);
+        ThemSP dialog = new ThemSP(this, parentFrame, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -252,10 +273,15 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
 
     private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
         // TODO add your handling code here:
-         if (jTable1_SP.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xoá");
+        if (jTable1_SP.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm muốn xoá");
         } else {
-            xoaSanPhamSelect();
+            int output = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xoá sản phẩm", "Xác nhận xoá sản phẩm", JOptionPane.YES_NO_OPTION);
+            if (output == JOptionPane.YES_OPTION) {
+                SanPhamDAO.getInstance().delete(getSanPhamSelect());
+                JOptionPane.showMessageDialog(this, "Xóa thành công !");
+                loadDataToTable();
+            }
         }
     }//GEN-LAST:event_btnxoaActionPerformed
 
@@ -265,7 +291,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần sửa");
         } else {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(SanPham.this);
-            SuaSP dialog = new SuaSP(parentFrame, true);
+            SuaSP dialog = new SuaSP(this,parentFrame, true);
             dialog.setVisible(true);
         }
     }//GEN-LAST:event_btnSuaActionPerformed
@@ -278,16 +304,30 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         loadDataToTableSearch(result);
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        jComboBoxLuaChon.setSelectedIndex(0);
+        loadDataToTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
     private void btnCTSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCTSPActionPerformed
         // TODO add your handling code here:
         if (jTable1_SP.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm !");
         } else {
             JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(SanPham.this);
-            XemCTSP dialog = new XemCTSP(parentFrame, true);
+            XemCTSP dialog = new XemCTSP(this, parentFrame, true);
             dialog.setVisible(true);
         }
     }//GEN-LAST:event_btnCTSPActionPerformed
+
+    private void jComboBoxLuaChonPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBoxLuaChonPropertyChange
+        // TODO add your handling code here:
+        String luaChon = jComboBoxLuaChon.getSelectedItem().toString();
+        String content = jTextFieldSearch.getText();
+        ArrayList<SanPhamModel> result = searchFn(luaChon, content);
+        loadDataToTableSearch(result);
+    }//GEN-LAST:event_jComboBoxLuaChonPropertyChange
 
     public ArrayList<SanPhamModel> searchFn(String luaChon, String content) {
         ArrayList<SanPhamModel> result = new ArrayList<>();
@@ -299,19 +339,27 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
             case "Mã sản phẩm":
                 result = timSP.searchMaSP(content);
                 break;
-            case "Tên máy":
+            case "Tên sản phẩm":
                 result = timSP.searchTenSP(content);
+                break;
+            case "Giá bán":
+                result = timSP.searchGiaSP(content);
                 break;
             case "Số lượng":
                 result = timSP.searchSoLuongSP(content);
                 break;
-            case "Đơn giá":
-                result = timSP.searchGiaSP(content);
+             case "Chất liệu":
+                result = timSP.searchChatLieuSP(content);
                 break;
-            case "Xuất Xứ":
+             case "Kích thước":
+                result = timSP.searchKichThuocSP(content);
+                break;
+             case "Mã NCC":
+                result = timSP.searchMaNCCSP(content);
+                break;
+            case "Xuất xứ":
                 result = timSP.searchXuatXuSP(content);
                 break;
-           
         }
         return result;
     }
@@ -321,32 +369,18 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
         return a;
     }
 
-
-    public void xoaSanPhamSelect() {
-        DefaultTableModel table_acc = (DefaultTableModel) jTable1_SP.getModel();
-        int i_row = jTable1_SP.getSelectedRow();
-        int luaChon = JOptionPane.showConfirmDialog(this, "Bạn có muốn xoá sản phẩm này?", "Xoá sản phẩm",
-                JOptionPane.YES_NO_OPTION);
-        if (luaChon == JOptionPane.YES_OPTION) {
-            SanPhamModel remove = getSanPhamSelect();
-            SanPhamDAO.getInstance().delete(remove);
-        }
-        loadDataToTable();
-    }
-
     public SanPhamModel getSanPhamSelect() {
         int i_row = jTable1_SP.getSelectedRow();
-        SanPhamModel acc = SanPhamDAO.getInstance().selectById(tblModel.getValueAt(i_row, 0).toString());
-        return acc;
+        SanPhamModel sp = SanPhamDAO.getInstance().selectAll().get(i_row);
+        return sp;
     }
 
     public void loadDataToTableSearch(ArrayList<SanPhamModel> result) {
         try {
-            
             tblModel.setRowCount(0);
             for (SanPhamModel i : result) {
                 tblModel.addRow(new Object[]{
-                    i.getMaSP(), i.getTenSP(), i.getSoLuongSP(),formatter.format(i.getGiaSP()) + "đ", i.getXuatXu()
+                    i.getMaSP(), i.getTenSP(),formatter.format(i.getGiabanSP()) + "đ", i.getSoLuongSP(), i.getKichThuoc(), i.getChatLieu(), i.getMaNCC() ,i.getXuatXu()
                 });
             }
         } catch (Exception e) {  
@@ -379,6 +413,7 @@ public class SanPham extends javax.swing.JPanel implements ActionListener{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCTSP;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnxoa;

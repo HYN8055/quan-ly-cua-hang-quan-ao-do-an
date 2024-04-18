@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import database.OracleJDBCConnection;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.SanPhamModel;
 
 /**
@@ -23,17 +26,21 @@ public class SanPhamDAO implements DAOInterface<SanPhamModel> {
     }
 
     @Override
-    public int insert(model.SanPhamModel s) {
+    public int insert(SanPhamModel s) {
         int ketQua = 0;
         try {
             Connection con = OracleJDBCConnection.getJDBCConnection();
-            String sql = "INSERT INTO SANPHAM (masp, tensp, soluong, giaban, xuatxu) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO SANPHAM (masp, tensp, giaban, gianhap, soluong, kichthuoc, chatlieu, mancc, xuatxu) VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, s.getMaSP());
             pst.setString(2, s.getTenSP());
-            pst.setInt(3, s.getSoLuongSP());
-            pst.setDouble(4, s.getGiaSP());
-            pst.setString(5, s.getXuatXu());
+            pst.setDouble(3, s.getGiabanSP());
+            pst.setDouble(4, s.getGianhapSP());
+            pst.setInt(5, s.getSoLuongSP());
+            pst.setString(6, s.getKichThuoc());
+            pst.setString(7, s.getChatLieu());
+            pst.setString(8, s.getMaNCC());
+            pst.setString(9, s.getXuatXu());
             ketQua = pst.executeUpdate();
             OracleJDBCConnection.closeConnection(con);
         } catch (Exception e) {
@@ -44,30 +51,42 @@ public class SanPhamDAO implements DAOInterface<SanPhamModel> {
         return ketQua;
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     @Override
-    public int update(model.SanPhamModel s) {
+    public int update(SanPhamModel s) {
         int ketQua = 0;
         try {
             Connection con = OracleJDBCConnection.getJDBCConnection();
-            String sql = "UPDATE SANPHAM SET masp=?, tensp=?, soluong=?, giaban=?, xuatxu=?  WHERE masp=?";
+            con.setAutoCommit(false);
+            String sql = "UPDATE SANPHAM SET masp=?, tensp=?, giaban=?, gianhap=?, soluong=?, kichthuoc=?, "
+                    + "chatlieu=?, mancc=?, xuatxu=? WHERE masp=?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, s.getMaSP());
             pst.setString(2, s.getTenSP());
-            pst.setInt(3, s.getSoLuongSP());
-            pst.setDouble(4, s.getGiaSP());
-            pst.setString(5, s.getXuatXu());
+            pst.setDouble(3, s.getGiabanSP());
+            pst.setDouble(4, s.getGianhapSP());
+            pst.setInt(5, s.getSoLuongSP());
+            pst.setString(6, s.getKichThuoc());
+            pst.setString(7, s.getChatLieu());
+            pst.setString(8, s.getMaNCC());
+            pst.setString(9, s.getXuatXu());
+            pst.setString(10, s.getMaSP());
             ketQua = pst.executeUpdate();
-            OracleJDBCConnection.closeConnection(con);
-        } catch (Exception e) {
+            
+            //OracleJDBCConnection.closeConnection(con);
+        } catch (SQLException e) {
             // TODO: handle exception
             e.printStackTrace();
         }
         return ketQua;
-
     }
 
     @Override
-    public int delete(model.SanPhamModel s) {
+    public int delete(SanPhamModel s) {
         int ketQua = 0;
         try {
             Connection con = OracleJDBCConnection.getJDBCConnection();
@@ -94,10 +113,14 @@ public class SanPhamDAO implements DAOInterface<SanPhamModel> {
             while (rs.next()) {
                 String maSP = rs.getString("masp");
                 String tenSP = rs.getString("tensp");
-                double giaSP = rs.getDouble("giaban");
+                double giabanSP = rs.getDouble("giaban");
+                double gianhapSP = rs.getDouble("gianhap");
                 int soLuongSP = rs.getInt("soluong");
+                String kichThuoc = rs.getString("kichthuoc");
+                String chatLieu = rs.getString("chatlieu");
+                String maNCC = rs.getString("mancc");
                 String xuatXu = rs.getString("xuatxu");
-                SanPhamModel sp = new SanPhamModel(maSP, tenSP, soLuongSP, giaSP, xuatXu);
+                SanPhamModel sp = new SanPhamModel(maSP, tenSP, giabanSP, gianhapSP, soLuongSP, kichThuoc, chatLieu, maNCC, xuatXu);
                 ketQua.add(sp);
             }
         } catch (Exception e) {
@@ -119,10 +142,14 @@ public class SanPhamDAO implements DAOInterface<SanPhamModel> {
             while (rs.next()) {
                 String maSP = rs.getString("masp");
                 String tenSP = rs.getString("tensp");
-                double giaSP = rs.getDouble("giasp");
+                double giabanSP = rs.getDouble("giaban");
+                double gianhapSP = rs.getDouble("gianhap");
                 int soLuongSP = rs.getInt("soluong");
+                String kichThuoc = rs.getString("kichthuoc");
+                String chatLieu = rs.getString("chatlieu");
+                String maNCC = rs.getString("mancc");
                 String xuatXu = rs.getString("xuatxu");
-                ketQua = new model.SanPhamModel(maSP, tenSP, soLuongSP, giaSP, xuatXu);
+                ketQua = new SanPhamModel(maSP, tenSP, giabanSP, gianhapSP, soLuongSP, kichThuoc, chatLieu, maNCC, xuatXu);
             }
         } catch (Exception e) {
             // TODO: handle exception

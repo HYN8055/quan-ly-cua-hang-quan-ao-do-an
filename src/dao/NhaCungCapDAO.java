@@ -97,8 +97,7 @@ public class NhaCungCapDAO implements DAOInterface<NhaCungCapModel> {
                 String diaChi = rs.getString("diachi");
                 String sdtNCC = rs.getString("sdt");
                 String emailNCC = rs.getString("email");
-                NhaCungCapModel ncc = new NhaCungCapModel(maNCC, tenNCC, diaChi,
-                        sdtNCC, emailNCC);
+                NhaCungCapModel ncc = new NhaCungCapModel(maNCC, tenNCC, diaChi, sdtNCC, emailNCC);
                 ketQua.add(ncc);
             }
         } catch (Exception e) {
@@ -113,7 +112,7 @@ public class NhaCungCapDAO implements DAOInterface<NhaCungCapModel> {
         NhaCungCapModel ketQua = null;
         try {
             Connection con = OracleJDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM NHACUNGCAP WHERE mancc?";
+            String sql = "SELECT * FROM NHACUNGCAP WHERE mancc=?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setString(1, s);
             ResultSet rs = pst.executeQuery();
@@ -123,8 +122,7 @@ public class NhaCungCapDAO implements DAOInterface<NhaCungCapModel> {
                 String diaChi = rs.getString("diachi");
                 String sdtNCC = rs.getString("sdt");
                 String emailNCC = rs.getString("email");
-                ketQua = new NhaCungCapModel(maNCC, tenNCC, diaChi, sdtNCC, 
-                        emailNCC);
+                ketQua = new NhaCungCapModel(maNCC, tenNCC, diaChi, sdtNCC, emailNCC);
             }
         } catch (Exception e) {
             // TODO: handle exception

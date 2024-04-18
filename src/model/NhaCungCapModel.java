@@ -13,14 +13,14 @@ import java.util.Objects;
 public class NhaCungCapModel {
     private String maNCC;
     private String tenNCC;
+    private String diaChi;
     private String sdtNCC;
     private String emailNCC;
-    private String diaChi;
 
     public NhaCungCapModel() {
     }
 
-    public NhaCungCapModel(String maNCC, String tenNCC, String sdtNCC, String emailNCC, String diaChi) {
+    public NhaCungCapModel(String maNCC, String tenNCC, String diaChi, String sdtNCC, String emailNCC) {
         this.maNCC = maNCC;
         this.tenNCC = tenNCC;
         this.sdtNCC = sdtNCC;

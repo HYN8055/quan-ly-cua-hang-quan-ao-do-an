@@ -14,18 +14,26 @@ import java.util.Objects;
 public class SanPhamModel {
     private String maSP;
     private String tenSP;
+    private double giabanSP;
+    private double gianhapSP;
     private int soLuongSP;
-    private double giaSP;
+    private String kichThuoc;
+    private String chatLieu;
+    private String maNCC;
     private String xuatXu;
 
     public SanPhamModel() {
     }
-    
-    public SanPhamModel(String maSP, String tenSP, int soLuongSP, double giaSP, String xuatXu) {
+
+    public SanPhamModel(String maSP, String tenSP, double giabanSP, double gianhapSP, int soLuongSP, String kichThuoc, String chatLieu, String maNCC, String xuatXu) {
         this.maSP = maSP;
         this.tenSP = tenSP;
-        this.giaSP = giaSP;
+        this.giabanSP = giabanSP;
+        this.gianhapSP = gianhapSP;
         this.soLuongSP = soLuongSP;
+        this.kichThuoc = kichThuoc;
+        this.chatLieu = chatLieu;
+        this.maNCC = maNCC;
         this.xuatXu = xuatXu;
     }
 
@@ -45,12 +53,20 @@ public class SanPhamModel {
         this.tenSP = tenSP;
     }
 
-    public double getGiaSP() {
-        return giaSP;
+    public double getGiabanSP() {
+        return giabanSP;
     }
 
-    public void setGiaSP(double giaSP) {
-        this.giaSP = giaSP;
+    public void setGiabanSP(double giabanSP) {
+        this.giabanSP = giabanSP;
+    }
+
+    public double getGianhapSP() {
+        return gianhapSP;
+    }
+
+    public void setGianhapSP(double gianhapSP) {
+        this.gianhapSP = gianhapSP;
     }
 
     public int getSoLuongSP() {
@@ -59,6 +75,30 @@ public class SanPhamModel {
 
     public void setSoLuongSP(int soLuongSP) {
         this.soLuongSP = soLuongSP;
+    }
+
+    public String getKichThuoc() {
+        return kichThuoc;
+    }
+
+    public void setKichThuoc(String kichThuoc) {
+        this.kichThuoc = kichThuoc;
+    }
+
+    public String getChatLieu() {
+        return chatLieu;
+    }
+
+    public void setChatLieu(String chatLieu) {
+        this.chatLieu = chatLieu;
+    }
+
+    public String getMaNCC() {
+        return maNCC;
+    }
+
+    public void setMaNCC(String maNCC) {
+        this.maNCC = maNCC;
     }
 
     public String getXuatXu() {
@@ -71,12 +111,16 @@ public class SanPhamModel {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 17 * hash + Objects.hashCode(this.maSP);
-        hash = 17 * hash + Objects.hashCode(this.tenSP);
-        hash = 17 * hash + (int) (Double.doubleToLongBits(this.giaSP) ^ (Double.doubleToLongBits(this.giaSP) >>> 32));
-        hash = 17 * hash + this.soLuongSP;
-        hash = 17 * hash + Objects.hashCode(this.xuatXu);
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.maSP);
+        hash = 29 * hash + Objects.hashCode(this.tenSP);
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.giabanSP) ^ (Double.doubleToLongBits(this.giabanSP) >>> 32));
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.gianhapSP) ^ (Double.doubleToLongBits(this.gianhapSP) >>> 32));
+        hash = 29 * hash + this.soLuongSP;
+        hash = 29 * hash + Objects.hashCode(this.kichThuoc);
+        hash = 29 * hash + Objects.hashCode(this.chatLieu);
+        hash = 29 * hash + Objects.hashCode(this.maNCC);
+        hash = 29 * hash + Objects.hashCode(this.xuatXu);
         return hash;
     }
 
@@ -92,7 +136,10 @@ public class SanPhamModel {
             return false;
         }
         final SanPhamModel other = (SanPhamModel) obj;
-        if (Double.doubleToLongBits(this.giaSP) != Double.doubleToLongBits(other.giaSP)) {
+        if (Double.doubleToLongBits(this.giabanSP) != Double.doubleToLongBits(other.giabanSP)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.gianhapSP) != Double.doubleToLongBits(other.gianhapSP)) {
             return false;
         }
         if (this.soLuongSP != other.soLuongSP) {
@@ -104,13 +151,24 @@ public class SanPhamModel {
         if (!Objects.equals(this.tenSP, other.tenSP)) {
             return false;
         }
+        if (!Objects.equals(this.kichThuoc, other.kichThuoc)) {
+            return false;
+        }
+        if (!Objects.equals(this.chatLieu, other.chatLieu)) {
+            return false;
+        }
+        if (!Objects.equals(this.maNCC, other.maNCC)) {
+            return false;
+        }
         return Objects.equals(this.xuatXu, other.xuatXu);
     }
 
     @Override
     public String toString() {
-        return "SanPhamModel{" + "maSP=" + maSP + ", tenSP=" + tenSP + ", giaSP=" + giaSP + ", soLuongSP=" + soLuongSP + ", xuatXu=" + xuatXu + '}';
+        return "SanPhamModel{" + "maSP=" + maSP + ", tenSP=" + tenSP + ", giabanSP=" + giabanSP + ", gianhapSP=" + gianhapSP + ", soLuongSP=" + soLuongSP + ", kichThuoc=" + kichThuoc + ", chatLieu=" + chatLieu + ", maNCC=" + maNCC + ", xuatXu=" + xuatXu + '}';
     }
-    
+   
     
 }
+    
+    

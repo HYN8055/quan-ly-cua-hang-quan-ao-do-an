@@ -19,8 +19,7 @@ public class Main {
     public static void main(String[] args) {
         
     new MainJFrame().setVisible(true);
- 
-    
+   
     
     /*DangnhapJDialog dialog= new DangnhapJDialog(null,true);
     dialog.setTitle("Đăng nhập hệ thống");
