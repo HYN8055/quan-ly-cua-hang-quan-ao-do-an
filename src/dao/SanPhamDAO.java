@@ -61,20 +61,18 @@ public class SanPhamDAO implements DAOInterface<SanPhamModel> {
         int ketQua = 0;
         try {
             Connection con = OracleJDBCConnection.getJDBCConnection();
-            con.setAutoCommit(false);
-            String sql = "UPDATE SANPHAM SET masp=?, tensp=?, giaban=?, gianhap=?, soluong=?, kichthuoc=?, "
-                    + "chatlieu=?, mancc=?, xuatxu=? WHERE masp=?";
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, s.getMaSP());
-            pst.setString(2, s.getTenSP());
-            pst.setDouble(3, s.getGiabanSP());
-            pst.setDouble(4, s.getGianhapSP());
-            pst.setInt(5, s.getSoLuongSP());
-            pst.setString(6, s.getKichThuoc());
-            pst.setString(7, s.getChatLieu());
-            pst.setString(8, s.getMaNCC());
-            pst.setString(9, s.getXuatXu());
-            pst.setString(10, s.getMaSP());
+            String sql = "UPDATE SANPHAM SET tensp='" + s.getTenSP() + "', giaban=" + s.getGiabanSP() + ", gianhap=" + s.getGianhapSP()+ ", soluong=" + s.getSoLuongSP()+ ", kichthuoc='" + s.getKichThuoc()+ "', chatlieu='" + s.getChatLieu()+ "', mancc='" + s.getMaNCC()+ "', xuatxu='" + s.getXuatXu() + "' WHERE masp='" + s.getMaSP() + "'";
+              PreparedStatement pst = con.prepareStatement(sql);
+//            pst.setString(1, s.getMaSP());
+//            pst.setString(2, s.getTenSP());
+//            pst.setDouble(3, s.getGiabanSP());
+//            pst.setDouble(4, s.getGianhapSP());
+//            pst.setInt(5, s.getSoLuongSP());
+//            pst.setString(6, s.getKichThuoc());
+//            pst.setString(7, s.getChatLieu());
+//            pst.setString(8, s.getMaNCC());
+//            pst.setString(9, s.getXuatXu());
+//            pst.setString(10, s.getMaSP());
             ketQua = pst.executeUpdate();
             
             //OracleJDBCConnection.closeConnection(con);

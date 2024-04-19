@@ -5,9 +5,12 @@
 package view.employees;
 
 import dao.NhaCungCapDAO;
+import dao.SanPhamDAO;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.NhaCungCapModel;
+import model.SanPhamModel;
 /**
  *
  * @author hyn09
@@ -24,6 +27,7 @@ public class ThemNCC extends javax.swing.JDialog {
         this.parent = (NhaCungCap) parent;
         initComponents();
         setLocationRelativeTo(null);
+        txtMaNhaCungCap.setText(createId());
     }
     
      ThemNCC() {
@@ -33,6 +37,7 @@ public class ThemNCC extends javax.swing.JDialog {
     private ThemNCC(JFrame jFrame, boolean b) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,6 +95,7 @@ public class ThemNCC extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Mã nhà cung cấp");
 
+        txtMaNhaCungCap.setEditable(false);
         txtMaNhaCungCap.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         txtMaNhaCungCap.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(204, 255, 255), new java.awt.Color(102, 204, 255)));
 
@@ -215,6 +221,24 @@ public class ThemNCC extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public String createId() {
+    ArrayList<NhaCungCapModel> spAll = NhaCungCapDAO.getInstance().selectAll();
+    int maxId = 0;
+    for (NhaCungCapModel sp : spAll) {
+        String maSP = sp.getMaNCC();
+        if (maSP.startsWith("NCC")) {
+            try {
+                int id = Integer.parseInt(maSP.replaceAll("[^\\d]", ""));
+                if (id > maxId) {
+                    maxId = id;
+                }
+            } catch (NumberFormatException e) {
+            }
+        }
+    }
+    return "NCC" + (maxId + 1);
+    }
+    
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         try {

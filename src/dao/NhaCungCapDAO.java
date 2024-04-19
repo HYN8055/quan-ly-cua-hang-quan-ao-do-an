@@ -49,13 +49,10 @@ public class NhaCungCapDAO implements DAOInterface<NhaCungCapModel> {
         int ketQua = 0;
         try {
             Connection con = OracleJDBCConnection.getJDBCConnection();
-            String sql = "UPDATE NHACUNGCAP SET mancc=?, tenncc=?, diachi=?, sdt=?, email=?  WHERE makh=?";
+            String sql = "UPDATE NHACUNGCAP SET tenncc='" + n.getTenNCC() + 
+                    "', diachi='" + n.getDiaChi() + "', sdt='" + n.getSdtNCC() +"', email='" + 
+                    n.getEmailNCC() +"'  WHERE mancc='" + n.getMaNCC() + "'";
             PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, n.getMaNCC());
-            pst.setString(2, n.getTenNCC());
-            pst.setString(3, n.getDiaChi());
-            pst.setString(4, n.getSdtNCC());
-            pst.setString(5, n.getEmailNCC());
             ketQua = pst.executeUpdate();
             OracleJDBCConnection.closeConnection(con);
         } catch (Exception e) {

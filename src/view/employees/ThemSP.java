@@ -6,6 +6,7 @@ package view.employees;
 
 import java.util.ArrayList;
 import dao.SanPhamDAO;
+import java.util.TreeSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.SanPhamModel;
@@ -369,31 +370,25 @@ public class ThemSP extends javax.swing.JDialog {
     private void txtGiaBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiaBanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtGiaBanActionPerformed
-    public String createId() {
-        ArrayList<SanPhamModel> spAll = SanPhamDAO.getInstance().selectAll();
-        ArrayList<SanPhamModel> all = new ArrayList<SanPhamModel>();
-        for (SanPhamModel sp : spAll) {
-            if (sp.getMaSP().contains("QA")) {
-                all.add(sp);
-            }
-        }
-        int i = spAll.size();
-        String check ="check";
-        while(check.length()!=0){
-            i++;
-            for (SanPhamModel sp : spAll) {
-                if(sp.getMaSP().equals("QA"+i)){
-                    check="";
+   public String createId() {
+    ArrayList<SanPhamModel> spAll = SanPhamDAO.getInstance().selectAll();
+    int maxId = 0;
+    for (SanPhamModel sp : spAll) {
+        String maSP = sp.getMaSP();
+        if (maSP.startsWith("QA")) {
+            try {
+                int id = Integer.parseInt(maSP.replaceAll("[^\\d]", ""));
+                if (id > maxId) {
+                    maxId = id;
                 }
-            }
-            if(check.length()==0){
-                check ="check";
-            } else {
-                check = "";
+            } catch (NumberFormatException e) {
             }
         }
-        return "QA" + i;
     }
+    return "QA" + (maxId + 1);
+}
+
+
     /**
      * @param args the command line arguments
      */
